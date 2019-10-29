@@ -25,7 +25,7 @@ const colors = {
   }
 };
 
-function generateHTML(data) {
+function generateHTML(userProfile) {
   console.log("function called")
   return `<!DOCTYPE html>
   <html lang="en">
@@ -54,7 +54,7 @@ function generateHTML(data) {
            height: 100%;
            }
            .wrapper {
-           background-color: ${colors[data.color].wrapperBackground};
+           background-color: ${colors[userProfile.color].wrapperBackground};
            padding-top: 100px;
            }
            body {
@@ -96,8 +96,8 @@ function generateHTML(data) {
            display: flex;
            justify-content: center;
            flex-wrap: wrap;
-           background-color: ${colors[data.color].headerBackground};
-           color: ${colors[data.color].headerColor};
+           background-color: ${colors[userProfile.color].headerBackground};
+           color: ${colors[userProfile.color].headerColor};
            padding: 10px;
            width: 95%;
            border-radius: 6px;
@@ -108,7 +108,7 @@ function generateHTML(data) {
            border-radius: 50%;
            object-fit: cover;
            margin-top: -75px;
-           border: 6px solid ${colors[data.color].photoBorderColor};
+           border: 6px solid ${colors[userProfile.color].photoBorderColor};
            box-shadow: rgba(0, 0, 0, 0.3) 4px 1px 20px 4px;
            }
            .photo-header h1, .photo-header h2 {
@@ -138,12 +138,13 @@ function generateHTML(data) {
            padding: 50px;
            padding-left: 100px;
            padding-right: 100px;
+           text-align: center;
            }
   
            .row {
              display: flex;
              flex-wrap: wrap;
-             justify-content: space-between;
+             justify-content: space-around;
              margin-top: 20px;
              margin-bottom: 20px;
            }
@@ -151,9 +152,11 @@ function generateHTML(data) {
            .card {
              padding: 20px;
              border-radius: 6px;
-             background-color: ${colors[data.color].headerBackground};
-             color: ${colors[data.color].headerColor};
+             background-color: ${colors[userProfile.color].headerBackground};
+             color: ${colors[userProfile.color].headerColor};
              margin: 20px;
+             width: 250px;
+             text-align: center;
            }
            
            .col {
@@ -179,21 +182,25 @@ function generateHTML(data) {
         </style>
       </head>
       <body>
-          <div class="wrapper border">
-              <div class="container border photo-header">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Michelle_Borromeo_Actor_Headshots_30.jpg">
+          <div class="wrapper">
+              <div class="container photo-header">
+                  <img src=${userProfile.image}>
                   <h1>Hi!</h1>
-                  <h3>My name is Kim Jung Un</h2>
-                  <h5>Currently @ Hogwarts</h3>
-                  <div class="row links-nav border">
+                  <div>
+                      <h3>My name is ${userProfile.username}</h2>
+                  </div>
+                  <br>
+                  <h5>Currently @ ${userProfile.location}</h3>
+                  <div class="row links-nav">
                       <div class="nav-link">
-                          <a href="#">Location
+                          <img src="https://image.flaticon.com/icons/svg/447/447031.svg" style="width: 25px; height: 25px">
+                          <a href="http://maps.google.com/?q=${userProfile.location}">${userProfile.location} 
                       </div>
                       <div class="nav-link">
-                          <a href="#">GitHub
+                          <a href=${userProfile.github}>GitHub
                       </div>
                       <div class="nav-link">
-                          <a href="#">Blog
+                          <a href=${userProfile.blog}>Blog
                       </div>
                   </div>
               </div>
@@ -201,16 +208,30 @@ function generateHTML(data) {
           <div class="container">
               <h3>I build things and teach people to code</h1>
               <div class="row">
-                  <div class="card border">
-                      I build things and teach people to code
+                  <div class="card">
+                      <p>Public Repositories</p>
+                      <p>${userProfile.repos}</p>
                   </div>
-                  <div class="card border">
-                      I build things and teach people to code
+                  <div class="card">
+                      <p>Public Followers</p>
+                      <p>${userProfile.followers}</p>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="card">
+                      <p>GitHub Stars</p>
+                      <p>${userProfile.stars}</p>
+                  </div>
+                  <div class="card">
+                      <p>Following</p>
+                      <p>${userProfile.following}</p>
                   </div>
               </div>
           </div>
+          <div>Icons made by <a href="https://www.flaticon.com/authors/freepik">Freepik</a>              title="Flaticon">www.flaticon.com</a></div>
       </body>
-  </html>  `
+  </html>
+  `
         }
 
 module.exports = {
